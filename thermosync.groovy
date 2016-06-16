@@ -32,9 +32,8 @@ init()
 }
 
 def init(){
-runIn(60, "temperatureHandler")
+//nIn(60, "temperatureHandler")
 subscribe(thermostat1, "thermostatSetpoint", temperatureHandler)
-//subscribe(thermostat2, "thermostatSetpoint", temperatureHandler)
 }
 
 def temperatureHandler(evt) {
@@ -52,7 +51,7 @@ log.debug "Current Temp Difference: ${difference}"
 
 if( difference != tempDiff ){
         def NewTemp = (MThermostatTemp + tempDiff)
-		def msg = "${thermostat2} sync'ed with ${thermostat1} with offset of ${tempDiff} degrees.  Now at ${NewTemp}."
+		def msg = "${thermostat2} sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees.  Now at ${NewTemp}."
 		thermostat2.setCoolingSetpoint(NewTemp)
         thermostat2.setHeatingSetpoint(NewTemp)
         thermostat2.poll()
