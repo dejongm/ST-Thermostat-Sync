@@ -34,41 +34,30 @@ init()
 def init(){
 runIn(60, "temperatureHandler")
 subscribe(thermostat1, "thermostatSetpoint", temperatureHandler)
-subscribe(thermostat2, "thermostatSetpoint", temperatureHandler)
+//subscribe(thermostat2, "thermostatSetpoint", temperatureHandler)
 }
 
 def temperatureHandler(evt) {
 
-log.debug "Temperature Handler"
+log.debug "Temperature Handler Begin"
 //get the latest temp readings and compare
 def MThermostatTemp = thermostat1.latestValue("thermostatSetpoint")
 def SThermostatTemp = thermostat2.latestValue("thermostatSetpoint")
+def difference = (SThermostatTemp - MThermostatTemp)
 
 log.debug "Thermostat(M): ${MThermostatTemp}"
 log.debug "Thermostat(S): ${SThermostatTemp}"
-log.debug "Current Temp Diff: ${tempDiff}"
-
-def difference = (SThermostatTemp - MThermostatTemp)
-
-log.debug "Temp Difference: ${difference}"
-
-//if(difference < 0){
-//	difference *= -1
-//    }
-//log.debug "Temp Difference Now: ${difference}"
-
+log.debug "Temp Diff: ${tempDiff}"
+log.debug "Current Temp Difference: ${difference}"
 
 if( difference != tempDiff ){
-	
-		//set the therm fan state to ON
         def NewTemp = (MThermostatTemp + tempDiff)
-		def msg = "I changed your ${thermostat2} to by sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees.  Now at ${NewTemp}."
+		def msg = "${thermostat2} sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees.  Now at ${NewTemp}."
 		thermostat2.setCoolingSetpoint(NewTemp)
         thermostat2.setHeatingSetpoint(NewTemp)
         thermostat2.poll()
 		log.debug msg
 		sendMessage(msg)
-	
 } 
 }
 
