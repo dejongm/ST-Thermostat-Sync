@@ -19,51 +19,53 @@ input "sendSMS", "phone", title: "Send as SMS?", required: false, defaultValue: 
 }
 
 def installed(){
-log.debug "Installed called with ${settings}"
-init()
+  log.debug "Installed called with ${settings}"
+  init()
 }
 
 def updated(){
-log.debug "Updated called with ${settings}"
-unsubscribe()
-init()
+  log.debug "Updated called with ${settings}"
+  unsubscribe()
+  init()
 }
 
 def init(){
 //nIn(60, "temperatureHandler")
-subscribe(thermostat1, "thermostatSetpoint", temperatureHandler)
+  subscribe(thermostat1, "thermostatSetpoint", temperatureHandler)
 }
 
 def temperatureHandler(evt) {
 
 log.debug "Temperature Handler Begin"
 //get the latest temp readings and compare
-def MThermostatTemp = thermostat1.latestValue("thermostatSetpoint")
-def SThermostatTemp = thermostat2.latestValue("thermostatSetpoint")
-def difference = (SThermostatTemp - MThermostatTemp)
+  def MThermostatTemp = thermostat1.latestValue("thermostatSetpoint")
+  def SThermostatTemp = thermostat2.latestValue("thermostatSetpoint")
+  def difference = (SThermostatTemp - MThermostatTemp)
 
-log.debug "Thermostat(M): ${MThermostatTemp}"
-log.debug "Thermostat(S): ${SThermostatTemp}"
-log.debug "Temp Diff: ${tempDiff}"
-log.debug "Current Temp Difference: ${difference}"
+  log.debug "Thermostat(M): ${MThermostatTemp}"
+  log.debug "Thermostat(S): ${SThermostatTemp}"
+  log.debug "Temp Diff: ${tempDiff}"
+  log.debug "Current Temp Difference: ${difference}"
 
-if( difference != tempDiff ){
-def NewTemp = (MThermostatTemp + tempDiff)
-def msg = "${thermostat2} sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees. Now at ${NewTemp}."
-thermostat2.setCoolingSetpoint(NewTemp)
-thermostat2.setHeatingSetpoint(NewTemp)
-thermostat2.poll()
-log.debug msg
-sendMessage(msg)
-} 
+  if( difference != tempDiff ){
+    def NewTemp = (MThermostatTemp + tempDiff)
+    def msg = "${thermostat2} sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees. Now at ${NewTemp}."
+    if (thermostat1.thermostatMode = "cool"){
+      thermostat2.setCoolingSetpoint(NewTemp)
+      else{thermostat2.setHeatingSetpoint(NewTemp)}
+    }
+    thermostat2.poll()
+    log.debug msg
+    sendMessage(msg)
+  } 
 }
 
 private sendMessage(msg){
-if (sendPushMessage == true) {
-sendPush(msg)
-}
-if (sendSMS != null) {
-sendSms(sendSMS, msg) 
-}
+  if (sendPushMessage == true) {
+    sendPush(msg)
+  }
+  if (sendSMS != null) {
+    sendSms(sendSMS, msg) 
+  }
 
 }
