@@ -1,5 +1,3 @@
-// Automatically generated. Make future change here.
-
 definition(
 name: "Bobs Thermostat Syncer",
 namespace: "smartthings",
@@ -50,13 +48,13 @@ log.debug "Temp Diff: ${tempDiff}"
 log.debug "Current Temp Difference: ${difference}"
 
 if( difference != tempDiff ){
-        def NewTemp = (MThermostatTemp + tempDiff)
-		def msg = "${thermostat2} sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees.  Now at ${NewTemp}."
-		thermostat2.setCoolingSetpoint(NewTemp)
-        thermostat2.setHeatingSetpoint(NewTemp)
-        thermostat2.poll()
-		log.debug msg
-		sendMessage(msg)
+def NewTemp = (MThermostatTemp + tempDiff)
+def msg = "${thermostat2} sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees. Now at ${NewTemp}."
+thermostat2.setCoolingSetpoint(NewTemp)
+thermostat2.setHeatingSetpoint(NewTemp)
+thermostat2.poll()
+log.debug msg
+sendMessage(msg)
 } 
 }
 
