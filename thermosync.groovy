@@ -40,19 +40,22 @@ log.debug "Temperature Handler Begin"
 //get the latest temp readings and compare
   def MThermostatTemp = thermostat1.latestValue("thermostatSetpoint")
   def SThermostatTemp = thermostat2.latestValue("thermostatSetpoint")
+  def mode = thermostat1.latestValue("thermostatMode")
   def difference = (SThermostatTemp - MThermostatTemp)
 
   log.debug "Thermostat(M): ${MThermostatTemp}"
   log.debug "Thermostat(S): ${SThermostatTemp}"
   log.debug "Temp Diff: ${tempDiff}"
   log.debug "Current Temp Difference: ${difference}"
+  log.debug "Current Mode: ${mode}"
 
   if( difference != tempDiff ){
     def NewTemp = (MThermostatTemp + tempDiff)
     def msg = "${thermostat2} sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees. Now at ${NewTemp}."
-    if (thermostat1.thermostatMode = "cool"){
+    if (mode == "cool"){
       thermostat2.setCoolingSetpoint(NewTemp)
-      else{thermostat2.setHeatingSetpoint(NewTemp)}
+    }
+      else{thermostat2.setHeatingSetpoint(NewTemp)
     }
     thermostat2.poll()
     log.debug msg
