@@ -52,7 +52,7 @@ log.debug "Current Temp Difference: ${difference}"
 
 if( difference != tempDiff ){
         def NewTemp = (MThermostatTemp + tempDiff)
-		def msg = "${thermostat2} sync'ed with ${thermostat1} with of offset of ${tempDiff} degrees.  Now at ${NewTemp}."
+		def msg = "${thermostat2} sync'ed with ${thermostat1} with offset of ${tempDiff} degrees.  Now at ${NewTemp}."
 		thermostat2.setCoolingSetpoint(NewTemp)
         thermostat2.setHeatingSetpoint(NewTemp)
         thermostat2.poll()
