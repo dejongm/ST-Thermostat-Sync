@@ -1,7 +1,7 @@
 public static String version() { return "v0.1.0" }
 definition(
 name: "thermosync",
-namespace: "smartthings",
+namespace: "dejongm",
 author: "Tim Slagle Modified by: Duane Helmuth/Bob Snyder",
 description: "Adjust a thermostat based on the setting of another thermostat",
 category: "Green Living",
