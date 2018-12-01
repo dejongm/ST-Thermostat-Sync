@@ -1,5 +1,5 @@
 definition(
-    name: "thermosync",
+    name: "ST-Thermostat-Sync",
     namespace: "dejongm",
     author: "Tim Slagle Modified by: Duane Helmuth/Bob Snyder",
     description: "Adjust a thermostat based on the setting of another thermostat",
