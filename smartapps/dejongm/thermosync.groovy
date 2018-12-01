@@ -1,12 +1,11 @@
-public static String version() { return "v0.1.0" }
 definition(
-name: "thermosync",
-namespace: "dejongm",
-author: "Tim Slagle Modified by: Duane Helmuth/Bob Snyder",
-description: "Adjust a thermostat based on the setting of another thermostat",
-category: "Green Living",
-iconUrl: "http://icons.iconarchive.com/icons/icons8/windows-8/512/Science-Temperature-icon.png",
-iconX2Url: "http://icons.iconarchive.com/icons/icons8/windows-8/512/Science-Temperature-icon.png"
+    name: "thermosync",
+    namespace: "dejongm",
+    author: "Tim Slagle Modified by: Duane Helmuth/Bob Snyder",
+    description: "Adjust a thermostat based on the setting of another thermostat",
+    category: "Green Living",
+    iconUrl: "http://icons.iconarchive.com/icons/icons8/windows-8/512/Science-Temperature-icon.png",
+    iconX2Url: "http://icons.iconarchive.com/icons/icons8/windows-8/512/Science-Temperature-icon.png"
 )
 
 section
