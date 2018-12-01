@@ -1,6 +1,6 @@
 public static String version() { return "v0.1.0" }
 definition(
-name: "Bobs Thermostat Syncer",
+name: "thermosync",
 namespace: "smartthings",
 author: "Tim Slagle Modified by: Duane Helmuth/Bob Snyder",
 description: "Adjust a thermostat based on the setting of another thermostat",
