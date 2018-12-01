@@ -1,3 +1,4 @@
+public static String version() { return "v0.1.0" }
 definition(
 name: "Bobs Thermostat Syncer",
 namespace: "smartthings",
